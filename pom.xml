@@ -13,7 +13,8 @@
         <java.version>21</java.version>
         <javafx.version>21.0.2</javafx.version>
         <!-- os-maven-plugin will populate os.detected.classifier -->
-        <javafx.platform>${os.detected.classifier}</javafx.platform>
+        <!-- javafx.platform left empty so OS-specific profiles can set the correct OpenJFX classifier -->
+        <javafx.platform></javafx.platform>
     </properties>
 
     <dependencies>
@@ -80,6 +81,33 @@
             </activation>
             <properties>
                 <javafx.platform>mac</javafx.platform>
+            </properties>
+        </profile>
+
+        <!-- Map os-maven-plugin classifier values (osx-*) to the OpenJFX classifier names -->
+        <profile>
+            <id>mac-osx-x86_64</id>
+            <activation>
+                <property>
+                    <name>os.detected.classifier</name>
+                    <value>osx-x86_64</value>
+                </property>
+            </activation>
+            <properties>
+                <javafx.platform>mac</javafx.platform>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>mac-osx-aarch64</id>
+            <activation>
+                <property>
+                    <name>os.detected.classifier</name>
+                    <value>osx-aarch64</value>
+                </property>
+            </activation>
+            <properties>
+                <javafx.platform>mac-aarch64</javafx.platform>
             </properties>
         </profile>
     </profiles>
